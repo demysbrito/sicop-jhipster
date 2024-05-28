@@ -1,0 +1,92 @@
+// 1 - Entidades
+// - Não possui suporte para herança entre classes
+// - Não possui suporte para chave composta
+// - Assume que todas as tabelas possuem chave primária numérica
+// - Nomes de classes, atributos e métodos padrão CamelCase
+
+// 2 - Relacionamentos
+// - 1:N - Modelo base para relacionamentos
+// - Unidirecional é o modelo ideal para relacionamentos
+// - Assume que o nome da chave estrangeira é o nome do atributo definido com _id
+
+// 3 - Configurações
+
+entity Topico(topicos) {
+	@Id id UUId
+    titulo String maxlength(1000) required
+    conteudo TextBlob
+    
+    ativo Boolean
+    
+    createdAt ZonedDateTime required
+    updatedAt ZonedDateTime
+    deletedAt ZonedDateTime  
+}
+
+relationshio ManyToMany {
+	Topico{ajudas(titulo)}
+}
+
+entity Ajuda(ajudas) {
+
+}
+
+relationship ManyToOne {
+	Portaria{assunto(nome)} to Assunto
+    Portaria{setor(nome)} to Setor
+    Portaria{usuario(nome)} to Usuario
+    Portaria{updatedBy(nome)} to Usuario
+    Portaria{deletedBy(nome)} to Usuario
+    
+    Usuario{perfil(nome)} to Perfil
+    Usuario{setor(nome)} to Setor
+}
+
+
+entity Portaria(portarias) {
+	numero Long required
+    data LocalDate
+    ano Integer
+    justificativaExclusao String
+}
+
+entity Assunto(assuntos) {
+	nome String maxlength(1000) required
+    descricao TextBlog
+    
+    createdAt ZonedDateTime required
+    updatedAt ZonedDateTime
+    deletedAt ZonedDateTime
+}
+
+entity Setor(setores) {
+	sigla String required
+    nome String maxlength(1000) required
+    
+    createdAt ZonedDateTime
+    updatedAt ZonedDateTime
+    deletedAt ZonedDateTime
+}
+
+entity Usuario(users) {
+	nome String maxlength(1000) required
+    login String
+    email String
+    cpf String
+    
+    createdAt ZonedDateTime
+    updatedAt ZonedDateTime
+    deletedAt ZonedDateTime
+}
+
+entity Perfil(perfis) {
+	nome String maxlength(1000) required
+    descricao String
+}
+
+
+
+
+
+
+
