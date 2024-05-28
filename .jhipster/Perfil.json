@@ -1,0 +1,21 @@
+{
+  "annotations": {
+    "changelogDate": "20240528165034"
+  },
+  "applications": "*",
+  "entityTableName": "perfis",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "descricao",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Perfil",
+  "relationships": [],
+  "searchEngine": "no"
+}
