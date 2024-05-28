@@ -11,78 +11,109 @@
 
 // 3 - Configurações
 
-entity Topico(topicos) {
-	@Id id UUId
+entity Topico(topicos) 
+{
+	@Id id UUID
     titulo String maxlength(1000) required
     conteudo TextBlob
     
     ativo Boolean
     
-    createdAt ZonedDateTime required
+    createdAt ZonedDateTime
     updatedAt ZonedDateTime
-    deletedAt ZonedDateTime  
+    deletedAt ZonedDateTime
 }
 
-relationshio ManyToMany {
-	Topico{ajudas(titulo)}
+
+relationship ManyToMany
+{
+	Topico{ajudas(titulo)} to Ajuda{topicos(titulo)}
+	Topico{assuntos(nome)} to Assunto{topicos(titulo)}	
 }
 
-entity Ajuda(ajudas) {
-
+entity Ajuda(ajudas) 
+{
+	@Id id UUID
+    titulo String maxlength(1000) required
+    conteudo TextBlob
+    
+    ativo Boolean
+    
+    createdAt ZonedDateTime
+    updatedAt ZonedDateTime
+    deletedAt ZonedDateTime
 }
 
-relationship ManyToOne {
-	Portaria{assunto(nome)} to Assunto
+relationship ManyToOne
+{
+	Portaria{assunto(nome)} to Assunto //assunto_id
     Portaria{setor(nome)} to Setor
+    Portaria{usuario(nome)} to Usuario
+    
+    Usuario{perfil(nome)} to Perfil 
+    Usuario{setor(nome)} to Setor
+    
     Portaria{usuario(nome)} to Usuario
     Portaria{updatedBy(nome)} to Usuario
     Portaria{deletedBy(nome)} to Usuario
-    
-    Usuario{perfil(nome)} to Perfil
-    Usuario{setor(nome)} to Setor
 }
 
+//versão bidirecional
+//relationship OneToMany
+//{
+//	Perfil{usuarios} to Usuario{perfil}
+//} 
 
-entity Portaria(portarias) {
+entity Perfil(perfis)
+{
+	nome String required
+    descricao String
+}
+
+entity Portaria(portarias)
+{
 	numero Long required
     data LocalDate
     ano Integer
     justificativaExclusao String
+    //Assunto - chave estrangeira
+    //Setor
+    //Usuario    
+    
+    createdAt ZonedDateTime
+    updatedAt ZonedDateTime
+    deletedAt ZonedDateTime
 }
 
 entity Assunto(assuntos) {
-	nome String maxlength(1000) required
-    descricao TextBlog
+    nome String maxlength(1000) required
+    descricao TextBlob 
     
-    createdAt ZonedDateTime required
+    createdAt ZonedDateTime
     updatedAt ZonedDateTime
     deletedAt ZonedDateTime
 }
 
 entity Setor(setores) {
-	sigla String required
     nome String maxlength(1000) required
+    sigla TextBlob 
     
     createdAt ZonedDateTime
     updatedAt ZonedDateTime
     deletedAt ZonedDateTime
 }
 
-entity Usuario(users) {
-	nome String maxlength(1000) required
-    login String
+entity Usuario(usuarios) {
+    nome String maxlength(1000) required
+    login String 
     email String
-    cpf String
+    cpf String 
     
     createdAt ZonedDateTime
     updatedAt ZonedDateTime
     deletedAt ZonedDateTime
 }
 
-entity Perfil(perfis) {
-	nome String maxlength(1000) required
-    descricao String
-}
 
 
 
