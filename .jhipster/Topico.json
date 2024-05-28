@@ -1,0 +1,63 @@
+{
+  "annotations": {
+    "changelogDate": "20240528165032"
+  },
+  "applications": "*",
+  "entityTableName": "topicos",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "titulo",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength", "required"],
+      "fieldValidateRulesMaxlength": "1000"
+    },
+    {
+      "fieldName": "conteudo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "ativo",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "deletedAt",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "name": "Topico",
+  "relationships": [
+    {
+      "otherEntityField": "titulo",
+      "otherEntityName": "ajuda",
+      "otherEntityRelationshipName": "topicos",
+      "relationshipName": "ajudas",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "nome",
+      "otherEntityName": "assunto",
+      "otherEntityRelationshipName": "topicos",
+      "relationshipName": "assuntos",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

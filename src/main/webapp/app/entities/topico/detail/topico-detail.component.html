@@ -1,0 +1,72 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (topico()) {
+      <div>
+        <h2 data-cy="topicoDetailsHeading"><span jhiTranslate="sicopJHipsterApp.topico.detail.title">Topico</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="sicopJHipsterApp.topico.id">Id</span></dt>
+          <dd>
+            <span>{{ topico()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="sicopJHipsterApp.topico.titulo">Titulo</span></dt>
+          <dd>
+            <span>{{ topico()!.titulo }}</span>
+          </dd>
+          <dt><span jhiTranslate="sicopJHipsterApp.topico.conteudo">Conteudo</span></dt>
+          <dd>
+            <span>{{ topico()!.conteudo }}</span>
+          </dd>
+          <dt><span jhiTranslate="sicopJHipsterApp.topico.ativo">Ativo</span></dt>
+          <dd>
+            <span>{{ topico()!.ativo }}</span>
+          </dd>
+          <dt><span jhiTranslate="sicopJHipsterApp.topico.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ topico()!.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="sicopJHipsterApp.topico.updatedAt">Updated At</span></dt>
+          <dd>
+            <span>{{ topico()!.updatedAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="sicopJHipsterApp.topico.deletedAt">Deleted At</span></dt>
+          <dd>
+            <span>{{ topico()!.deletedAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="sicopJHipsterApp.topico.ajudas">Ajudas</span></dt>
+          <dd>
+            @for (ajudas of topico()!.ajudas; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/ajuda', ajudas.id, 'view']">{{ ajudas?.titulo }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="sicopJHipsterApp.topico.assuntos">Assuntos</span></dt>
+          <dd>
+            @for (assuntos of topico()!.assuntos; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/assunto', assuntos.id, 'view']">{{ assuntos?.nome }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/topico', topico()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

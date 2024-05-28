@@ -1,0 +1,44 @@
+{
+  "annotations": {
+    "changelogDate": "20240528165036"
+  },
+  "applications": "*",
+  "entityTableName": "assuntos",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength", "required"],
+      "fieldValidateRulesMaxlength": "1000"
+    },
+    {
+      "fieldName": "descricao",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "deletedAt",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "name": "Assunto",
+  "relationships": [
+    {
+      "otherEntityField": "titulo",
+      "otherEntityName": "topico",
+      "otherEntityRelationshipName": "assuntos",
+      "relationshipName": "topicos",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

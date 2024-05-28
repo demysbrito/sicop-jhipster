@@ -8,7 +8,13 @@
       "entities": {
         "main": "Entities",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "adminAuthority": "Authority"
+        "topico": "Topico",
+        "ajuda": "Ajuda",
+        "perfil": "Perfil",
+        "portaria": "Portaria",
+        "assunto": "Assunto",
+        "setor": "Setor",
+        "usuario": "Usuario"
       },
       "account": {
         "main": "Account",

@@ -1,0 +1,142 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-topico-heading" data-cy="TopicoCreateUpdateHeading" jhiTranslate="sicopJHipsterApp.topico.home.createOrEditLabel">
+        Criar ou editar Topico
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="sicopJHipsterApp.topico.id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_titulo" jhiTranslate="sicopJHipsterApp.topico.titulo">Titulo</label>
+          <input type="text" class="form-control" name="titulo" id="field_titulo" data-cy="titulo" formControlName="titulo" />
+          @if (editForm.get('titulo')!.invalid && (editForm.get('titulo')!.dirty || editForm.get('titulo')!.touched)) {
+            <div>
+              @if (editForm.get('titulo')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('titulo')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '1000' }"
+                  >Este campo não pode ter mais de 1000 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_conteudo" jhiTranslate="sicopJHipsterApp.topico.conteudo">Conteudo</label>
+          <textarea class="form-control" name="conteudo" id="field_conteudo" data-cy="conteudo" formControlName="conteudo"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_ativo" jhiTranslate="sicopJHipsterApp.topico.ativo">Ativo</label>
+          <input type="checkbox" class="form-check" name="ativo" id="field_ativo" data-cy="ativo" formControlName="ativo" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt" jhiTranslate="sicopJHipsterApp.topico.createdAt">Created At</label>
+          <div class="d-flex">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="datetime-local"
+              class="form-control"
+              name="createdAt"
+              formControlName="createdAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_updatedAt" jhiTranslate="sicopJHipsterApp.topico.updatedAt">Updated At</label>
+          <div class="d-flex">
+            <input
+              id="field_updatedAt"
+              data-cy="updatedAt"
+              type="datetime-local"
+              class="form-control"
+              name="updatedAt"
+              formControlName="updatedAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_deletedAt" jhiTranslate="sicopJHipsterApp.topico.deletedAt">Deleted At</label>
+          <div class="d-flex">
+            <input
+              id="field_deletedAt"
+              data-cy="deletedAt"
+              type="datetime-local"
+              class="form-control"
+              name="deletedAt"
+              formControlName="deletedAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_ajudas" jhiTranslate="sicopJHipsterApp.topico.ajudas">Ajudas</label>
+          <select
+            class="form-control"
+            id="field_ajudas"
+            data-cy="ajudas"
+            multiple
+            name="ajudas"
+            formControlName="ajudas"
+            [compareWith]="compareAjuda"
+          >
+            @for (ajudaOption of ajudasSharedCollection; track $index) {
+              <option [ngValue]="ajudaOption">{{ ajudaOption.titulo }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_assuntos" jhiTranslate="sicopJHipsterApp.topico.assuntos">Assuntos</label>
+          <select
+            class="form-control"
+            id="field_assuntos"
+            data-cy="assuntos"
+            multiple
+            name="assuntos"
+            formControlName="assuntos"
+            [compareWith]="compareAssunto"
+          >
+            @for (assuntoOption of assuntosSharedCollection; track $index) {
+              <option [ngValue]="assuntoOption">{{ assuntoOption.nome }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

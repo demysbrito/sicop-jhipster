@@ -1,0 +1,55 @@
+{
+  "annotations": {
+    "changelogDate": "20240528165033"
+  },
+  "applications": "*",
+  "entityTableName": "ajudas",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "titulo",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength", "required"],
+      "fieldValidateRulesMaxlength": "1000"
+    },
+    {
+      "fieldName": "conteudo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "ativo",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "deletedAt",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "name": "Ajuda",
+  "relationships": [
+    {
+      "otherEntityField": "titulo",
+      "otherEntityName": "topico",
+      "otherEntityRelationshipName": "ajudas",
+      "relationshipName": "topicos",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

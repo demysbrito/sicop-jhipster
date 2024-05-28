@@ -1,0 +1,154 @@
+<div>
+  <h2 id="page-heading" data-cy="TopicoHeading">
+    <span jhiTranslate="sicopJHipsterApp.topico.home.title">Topicos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="sicopJHipsterApp.topico.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-topico"
+        [routerLink]="['/topico/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="sicopJHipsterApp.topico.home.createLabel">Criar novo Topico</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (topicos?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="sicopJHipsterApp.topico.home.notFound">Nenhum Topico encontrado</span>
+    </div>
+  }
+
+  @if (topicos && topicos.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="sicopJHipsterApp.topico.id">Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="titulo">
+              <div class="d-flex">
+                <span jhiTranslate="sicopJHipsterApp.topico.titulo">Titulo</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="conteudo">
+              <div class="d-flex">
+                <span jhiTranslate="sicopJHipsterApp.topico.conteudo">Conteudo</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="ativo">
+              <div class="d-flex">
+                <span jhiTranslate="sicopJHipsterApp.topico.ativo">Ativo</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdAt">
+              <div class="d-flex">
+                <span jhiTranslate="sicopJHipsterApp.topico.createdAt">Created At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="updatedAt">
+              <div class="d-flex">
+                <span jhiTranslate="sicopJHipsterApp.topico.updatedAt">Updated At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="deletedAt">
+              <div class="d-flex">
+                <span jhiTranslate="sicopJHipsterApp.topico.deletedAt">Deleted At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="ajudas.titulo">
+              <div class="d-flex">
+                <span jhiTranslate="sicopJHipsterApp.topico.ajudas">Ajudas</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="assuntos.nome">
+              <div class="d-flex">
+                <span jhiTranslate="sicopJHipsterApp.topico.assuntos">Assuntos</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (topico of topicos; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/topico', topico.id, 'view']">{{ topico.id }}</a>
+              </td>
+              <td>{{ topico.titulo }}</td>
+              <td>{{ topico.conteudo }}</td>
+              <td>{{ topico.ativo }}</td>
+              <td>{{ topico.createdAt | formatMediumDatetime }}</td>
+              <td>{{ topico.updatedAt | formatMediumDatetime }}</td>
+              <td>{{ topico.deletedAt | formatMediumDatetime }}</td>
+              <td>
+                @for (ajudas of topico.ajudas; track $index; let last = $last) {
+                  <span>
+                    <a class="form-control-static" [routerLink]="['/ajuda', ajudas.id, 'view']">{{ ajudas.titulo }}</a
+                    >{{ last ? '' : ', ' }}
+                  </span>
+                }
+              </td>
+              <td>
+                @for (assuntos of topico.assuntos; track $index; let last = $last) {
+                  <span>
+                    <a class="form-control-static" [routerLink]="['/assunto', assuntos.id, 'view']">{{ assuntos.nome }}</a
+                    >{{ last ? '' : ', ' }}
+                  </span>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/topico', topico.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+                  </a>
+
+                  <a [routerLink]="['/topico', topico.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(topico)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

@@ -1,0 +1,35 @@
+{
+  "annotations": {
+    "changelogDate": "20240528165037"
+  },
+  "applications": "*",
+  "entityTableName": "setores",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength", "required"],
+      "fieldValidateRulesMaxlength": "1000"
+    },
+    {
+      "fieldName": "sigla",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "deletedAt",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "name": "Setor",
+  "relationships": [],
+  "searchEngine": "no"
+}
